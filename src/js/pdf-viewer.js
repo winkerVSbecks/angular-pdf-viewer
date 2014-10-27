@@ -6,11 +6,11 @@ angular.module('pdf')
   function($window, $log, pdfDelegate) {
     return {
       restrict: 'E',
-      template: '<pdf-viewer-nav delegate-handle="relativity-special-general-theory" page-count="pageCount"></pdf-viewer-nav><canvas></canvas>',
+      template: '<pdf-viewer-toolbar delegate-handle="relativity-special-general-theory" page-count="pageCount"></pdf-viewer-toolbar><canvas></canvas>',
       scope: true,
       controller: 'PdfCtrl',
       link: function(scope, element, attrs) {
-
+        scope.showToolbar = scope.$eval(attrs.showToolbar) || false;
       }
     };
 }]);

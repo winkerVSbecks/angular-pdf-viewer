@@ -10,7 +10,7 @@ gulp.task('build', function() {
     './src/js/delegate-service.js',
     './src/js/pdf-viewer-delegate.js',
     './src/js/pdf-ctrl.js',
-    './src/js/pdf-viewer-nav.js',
+    './src/js/pdf-viewer-toolbar.js',
     './src/js/pdf-viewer.js'
   ])
     .pipe(concat('angular-pdf-viewer.min.js'))

@@ -1,6 +1,4 @@
-# Angular PDF Viewer
-
-Version: 0.1.0
+# Angular PDF Viewer (0.1.0)
 
 An AngularJS directive to display PDFs.
 
@@ -15,10 +13,12 @@ An AngularJS directive to display PDFs.
 
 1. `bower install angular-pdf-viewer`
 
-2. Include the path to the lib:
+2. Include the path to the lib, AngularJS and PDFJS:
 
 ```
-<script src="js/vendor/angular-pdf/dist/angular-pdf-viewer.min.js"></script>
+<script src="bower_components/pdfjs-dist/build/pdf.combined.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-pdf/dist/angular-pdf-viewer.min.js"></script>
 ```
 
 3. Include the lib as a dependency in your angular app:
@@ -36,11 +36,12 @@ The URL, scale and delegate-handle can be set using the attributes:
 <pdf-viewer
     delegate-handle="relativity-special-general-theory"
     url="pdfUrl"
-    scale="1"></pdf-viewer>
+    scale="1"
+    show-nav="true"></pdf-viewer>
 ```
 
 
-### Delegate Service (pdfDelegate)
+## Delegate Service (pdfDelegate)
 
 The pdfDelegate service allows you to access and control individual instances of a directive. This allows us to have multiple instances of the same directive in the same controller.
 
@@ -59,6 +60,10 @@ The following methods are available to the delegate:
 - getPageCount
 - getCurrentPage
 - goToPage(pageNumber)
+
+
+## Toolbar
+The default toolbar can be shown or hidden using the `show-toolbar` attribute. Since the PDF can be easily controlled using the delegate service it's quite trivial to build a custom toolbar. Or place the toolbar on a separate scope.
 
 
 ## Similar projects

@@ -1,5 +1,5 @@
 angular.module('pdf')
-  .directive('pdfViewerNav', [
+  .directive('pdfViewerToolbar', [
     'pdfDelegate',
   function(pdfDelegate) {
     return {
