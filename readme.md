@@ -1,7 +1,6 @@
 # Angular PDF Viewer (0.1.0)
 
-An AngularJS directive to display PDFs.
-
+An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/full/50010e383d0f80deab97858571400d86/)
 
 ## Dependencies
 
