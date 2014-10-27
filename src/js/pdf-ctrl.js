@@ -1,0 +1,116 @@
+angular.module('pdf')
+  .controller('PdfCtrl', [
+    '$scope',
+    '$element',
+    '$attrs',
+    'pdfDelegate',
+    '$log',
+  function($scope, $element, $attrs, pdfDelegate, $log) {
+
+    // Register the instance!
+    var deregisterInstance = pdfDelegate._registerInstance(this, $attrs.delegateHandle);
+    // De-Register on destory!
+    $scope.$on('$destroy', deregisterInstance);
+
+    var self = this;
+
+    var url = $scope.$eval($attrs.url);
+    var pdfDoc;
+    $scope.pageCount = 0;
+    var currentPage = 1;
+    var angle = 0;
+    var scale = $attrs.scale ? $attrs.scale : 1;
+    var canvas = $element.find('canvas')[0];
+    var ctx = canvas.getContext('2d');
+
+    var renderPage = function(num) {
+      if (!angular.isNumber(num))
+        num = parseInt(num);
+      pdfDoc
+        .getPage(num)
+        .then(function(page) {
+          var viewport = page.getViewport(scale);
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          var renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+          };
+
+          page.render(renderContext);
+        });
+    };
+
+    var transform = function() {
+      canvas.style.webkitTransform = 'rotate('+ angle + 'deg)';
+      canvas.style.MozTransform = 'rotate('+ angle + 'deg)';
+      canvas.style.msTransform = 'rotate('+ angle + 'deg)';
+      canvas.style.OTransform = 'rotate('+ angle + 'deg)';
+      canvas.style.transform = 'rotate('+ angle + 'deg)';
+    };
+
+    self.prev = function() {
+      if (currentPage <= 1)
+        return;
+      currentPage = parseInt(currentPage, 10) - 1;
+      renderPage(currentPage);
+    };
+
+    self.next = function() {
+      if (currentPage >= pdfDoc.numPages)
+        return;
+      currentPage = parseInt(currentPage, 10) + 1;
+      renderPage(currentPage);
+    };
+
+    self.zoomIn = function() {
+      scale = parseFloat(scale) + 0.2;
+      renderPage(currentPage);
+      return scale;
+    };
+
+    self.zoomOut = function() {
+      scale = parseFloat(scale) - 0.2;
+      renderPage(currentPage);
+      return scale;
+    };
+
+    self.rotate = function() {
+      if (angle === 0) {
+        angle = 90;
+      } else if (angle === 90) {
+        angle = 180;
+      } else if (angle === 180) {
+        angle = 270;
+      } else {
+        angle = 0
+      }
+      transform();
+    };
+
+    self.getPageCount = function() {
+      return $scope.pageCount;
+    };
+
+    self.getCurrentPage = function () {
+      return currentPage;
+    };
+
+    self.goToPage = function(newVal) {
+      if (pdfDoc !== null) {
+        currentPage = newVal;
+        renderPage(newVal);
+      }
+    };
+
+    PDFJS
+      .getDocument(url)
+      .then(function (_pdfDoc) {
+        pdfDoc = _pdfDoc;
+        renderPage(currentPage);
+        $scope.$apply(function() {
+          $scope.pageCount = _pdfDoc.numPages;
+        });
+      }, $log.error);
+}]);

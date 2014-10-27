@@ -1,0 +1,20 @@
+{
+  "name": "angular-pdf-viewer",
+  "version": "0.1.0",
+  "author": "Varun Vachhar",
+  "description": "An AngularJS directive to display PDFs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winkerVSbecks/angular-pdf-viewer.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-concat": "^2.3.4",
+    "gulp-uglify": "^0.3.1",
+    "gulp-watch": "^0.6.9",
+    "gulp-connect": "^2.0.6",
+    "colors": "^0.6.2",
+    "gulp-html2js": "^0.1.0",
+    "gulp-concat": "^2.3.4"
+  }
+}
