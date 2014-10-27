@@ -4,26 +4,24 @@ var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
 var watch = require('gulp-watch');
 var colors = require('colors');
-var html2js = require('gulp-html2js');
 
-gulp.task('css', function() {
-  return gulp.src('./src/*.css')
-    .pipe(gulp.dest('./dist/'));
-});
-
-gulp.task('js', function() {
-  return gulp.src('./src/js/*.js')
+gulp.task('build', function() {
+  gulp.src([
+    './src/js/delegate-service.js',
+    './src/js/pdf-viewer-delegate.js',
+    './src/js/pdf-ctrl.js',
+    './src/js/pdf-viewer-nav.js',
+    './src/js/pdf-viewer.js'
+  ])
     .pipe(concat('angular-pdf-viewer.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('build', ['js']);
-
 gulp.task('dev', function() {
   // Start a server
   connect.server({
-    root: 'src',
+    root: '',
     port: 3000,
     livereload: true
   });
