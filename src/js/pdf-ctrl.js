@@ -104,13 +104,23 @@ angular.module('pdf')
       }
     };
 
-    PDFJS
-      .getDocument(url)
-      .then(function (_pdfDoc) {
-        pdfDoc = _pdfDoc;
-        renderPage(currentPage);
-        $scope.$apply(function() {
-          $scope.pageCount = _pdfDoc.numPages;
-        });
-      }, $log.error);
+    self.load = function(_url) {
+      if (_url) {
+        url = _url;
+      }
+
+      PDFJS
+        .getDocument(url)
+        .then(function (_pdfDoc) {
+
+          pdfDoc = _pdfDoc;
+          renderPage(1);
+          $scope.$apply(function() {
+            $scope.pageCount = _pdfDoc.numPages;
+          });
+
+        }, $log.error);
+    };
+
+    self.load();
 }]);

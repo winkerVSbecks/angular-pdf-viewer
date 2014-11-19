@@ -21,10 +21,28 @@
       </header>
 
       <pdf-viewer
-        delegate-handle="relativity-special-general-theory"
+        delegate-handle="my-pdf-container"
         url="pdfUrl"
         scale="1"
         show-toolbar="true"></pdf-viewer>
+
+
+      <footer class="py4">
+        <div class="sm-table">
+          <div class="sm-table-cell full-width py2 xs-center">
+            <div class="h5 bold px1">
+              <a ng-click="loadNewFile('pdf/relativity.pdf')"
+                class="button button-narrow button-nav-light">
+                  Load the Relativity PDF
+              </a>
+              <a ng-click="loadNewFile('pdf/material-design.pdf')"
+                class="button button-narrow button-nav-light">
+                  Load the Material Design PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
 
@@ -33,10 +51,11 @@
   <script src="/dist/angular-pdf-viewer.min.js"></script>
   <script src="test-app.js"></script>
 
-  // <!-- <script src="js/delegate-service.js"></script>
-  // <script src="js/pdf-viewer-delegate.js"></script>
-  // <script src="js/pdf-ctrl.js"></script>
-  // <script src="js/pdf-viewer.js"></script>
-  // <script src="js/pdf-viewer-toolbar.js"></script> -->
+ <!--  <script src="js/delegate-service.js"></script>
+  <script src="js/pdf-viewer-delegate.js"></script>
+  <script src="js/pdf-ctrl.js"></script>
+  <script src="js/pdf-viewer.js"></script>
+  <script src="js/pdf-viewer-toolbar.js"></script>
+  <script src="test-app.js"></script> -->
 </body>
 </html>
