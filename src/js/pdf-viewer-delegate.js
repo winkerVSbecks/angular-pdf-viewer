@@ -7,5 +7,6 @@ angular.module('pdf', [])
     'rotate',
     'getPageCount',
     'getCurrentPage',
-    'goToPage'
+    'goToPage',
+    'load'
   ]));

@@ -22,7 +22,7 @@ An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/f
 
 3. Include the lib as a dependency in your angular app:
 
-```
+``` js
 var app = angular.module('App', ['pdf']);
 ```
 
@@ -31,9 +31,9 @@ var app = angular.module('App', ['pdf']);
 
 The URL, scale and delegate-handle can be set using the attributes:
 
-```
+``` html
 <pdf-viewer
-    delegate-handle="relativity-special-general-theory"
+    delegate-handle="my-pdf-container"
     url="pdfUrl"
     scale="1"
     show-nav="true"></pdf-viewer>
@@ -46,8 +46,8 @@ The pdfDelegate service allows you to access and control individual instances of
 
 Inject the `pdfDelegate` service into your controller. You can then fetch an instance using it's delegate handle and call methods on it:
 
-```
-pdfDelegate.$getByHandle('relativity-special-general-theory').zoomIn();
+``` js
+pdfDelegate.$getByHandle('my-pdf-container').zoomIn();
 ```
 
 The following methods are available to the delegate:
@@ -59,6 +59,18 @@ The following methods are available to the delegate:
 - getPageCount
 - getCurrentPage
 - goToPage(pageNumber)
+- load
+
+
+## Change the Pdf File
+
+In order to replace the active PDF with another one, you can call the `load` method of the delegate. For example:
+
+``` js
+pdfDelegate
+    .$getByHandle('my-pdf-container')
+    .load('url-of-the-new-file.pdf');
+```
 
 
 ## Toolbar
@@ -73,4 +85,4 @@ The default toolbar can be shown or hidden using the `show-toolbar` attribute. S
 
 ## Credit
 
-PDF example used is [Relativity: The Special and General Theory by Albert Einstein](http://www.gutenberg.org/ebooks/30155) as kindly organized and made available free by [Project Gutenberg](http://www.gutenberg.org/wiki/Main_Page).
+PDF examples used are [Relativity: The Special and General Theory by Albert Einstein](http://www.gutenberg.org/ebooks/30155) as kindly organized and made available free by [Project Gutenberg](http://www.gutenberg.org/wiki/Main_Page). And the [This is Material Design](http://static.googleusercontent.com/media/www.google.com/en//design/material-design.pdf) by Google.

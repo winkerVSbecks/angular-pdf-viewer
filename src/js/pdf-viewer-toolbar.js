@@ -67,7 +67,6 @@ angular.module('pdf')
             .rotate();
         };
         scope.goToPage = function() {
-          console.log(scope.currentPage)
           pdfDelegate
             .$getByHandle(id)
             .goToPage(scope.currentPage);
@@ -77,7 +76,6 @@ angular.module('pdf')
           scope.currentPage = pdfDelegate
                                 .$getByHandle(id)
                                 .getCurrentPage();
-                                console.log(pdfDelegate.$getByHandle(id).getCurrentPage());
         };
       }
     };
