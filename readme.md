@@ -1,4 +1,4 @@
-# Angular PDF Viewer (0.1.0)
+# Angular PDF Viewer (0.2.0)
 
 An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/full/50010e383d0f80deab97858571400d86/)
 
@@ -62,7 +62,7 @@ The following methods are available to the delegate:
 - load
 
 
-## Change the Pdf File
+## Change the PDF File
 
 In order to replace the active PDF with another one, you can call the `load` method of the delegate. For example:
 
@@ -71,6 +71,11 @@ pdfDelegate
     .$getByHandle('my-pdf-container')
     .load('url-of-the-new-file.pdf');
 ```
+
+
+## Example
+
+Run `npm install && bower install` to install all dependencies. And then `gulp dev` to start a local server. The example will now be available at [localhost:3000/src](http://localhost:3000/src)
 
 
 ## Toolbar

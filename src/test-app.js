@@ -4,11 +4,11 @@ angular.module('testApp', ['pdf'])
     'pdfDelegate',
     '$timeout',
   function($scope, pdfDelegate, $timeout) {
-    $scope.pdfUrl = 'pdf/relativity.pdf';
+    $scope.pdfUrl = 'pdf/material-design.pdf';
 
-    $scope.loadNewFile = function() {
+    $scope.loadNewFile = function(url) {
       pdfDelegate
         .$getByHandle('my-pdf-container')
-        .load('pdf/material-design.pdf');
+        .load(url);
     };
 }]);
