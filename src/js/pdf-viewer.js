@@ -7,7 +7,9 @@ angular.module('pdf')
     return {
       restrict: 'E',
       template: '<pdf-viewer-toolbar delegate-handle="{{id}}" page-count="pageCount"></pdf-viewer-toolbar><canvas></canvas>',
-      scope: true,
+      scope: {
+        url: '='
+      },
       controller: 'PdfCtrl',
       link: function(scope, element, attrs) {
         scope.id = attrs.delegateHandle;

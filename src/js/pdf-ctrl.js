@@ -14,7 +14,13 @@ angular.module('pdf')
 
     var self = this;
 
-    var url = $scope.$eval($attrs.url);
+    var url = '';
+    $scope.$watch('url', function (newUrl) {
+      if (url !== newUrl) {
+        url = newUrl;
+        self.load();
+      }
+    }, true);
     var pdfDoc;
     $scope.pageCount = 0;
     var currentPage = 1;
@@ -121,6 +127,4 @@ angular.module('pdf')
 
         }, $log.error);
     };
-
-    self.load();
 }]);
