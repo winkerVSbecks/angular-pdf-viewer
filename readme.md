@@ -36,7 +36,7 @@ The URL, scale and delegate-handle can be set using the attributes:
     delegate-handle="my-pdf-container"
     url="pdfUrl"
     scale="1"
-    show-nav="true"></pdf-viewer>
+    show-toolbar="true"></pdf-viewer>
 ```
 
 
