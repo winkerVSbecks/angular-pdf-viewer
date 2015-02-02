@@ -15,6 +15,7 @@ angular.module('pdf')
     var self = this;
 
     var url = $scope.$eval($attrs.url);
+    var headers = $scope.$eval($attrs.headers);
     var pdfDoc;
     $scope.pageCount = 0;
     var currentPage = 1;
@@ -109,8 +110,17 @@ angular.module('pdf')
         url = _url;
       }
 
+      docInitParams = new Object();
+
+      if (headers) {
+        docInitParams.url = url;
+        docInitParams.httpHeaders = headers;
+      } else {
+        docInitParams.url = url;
+      }
+
       PDFJS
-        .getDocument(url)
+        .getDocument(docInitParams)
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
