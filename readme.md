@@ -1,4 +1,4 @@
-# Angular PDF Viewer (0.2.3)
+# Angular PDF Viewer (0.2.4)
 
 An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/full/50010e383d0f80deab97858571400d86/)
 
@@ -29,14 +29,15 @@ var app = angular.module('App', ['pdf']);
 
 ## Directive
 
-The URL, scale and delegate-handle can be set using the attributes:
+The URL, request headers, scale and delegate-handle can be set using the attributes:
 
 ``` html
 <pdf-viewer
     delegate-handle="my-pdf-container"
     url="pdfUrl"
     scale="1"
-    show-toolbar="true"></pdf-viewer>
+    show-toolbar="true"
+    headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
 ```
 
 
