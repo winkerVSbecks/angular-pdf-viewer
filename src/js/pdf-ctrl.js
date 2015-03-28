@@ -110,6 +110,8 @@ angular.module('pdf')
         url = _url;
       }
 
+      if(url == undefined) return;
+
       var docInitParams = {};
 
       if (headers) {
