@@ -132,5 +132,5 @@ angular.module('pdf')
         }, $log.error);
     };
 
-    self.load();
+    if(url != undefined) self.load();
 }]);
