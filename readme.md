@@ -17,7 +17,7 @@ An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/f
 ```
 <script src="bower_components/pdfjs-dist/build/pdf.js"></script>
 <script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-pdf/dist/angular-pdf-viewer.min.js"></script>
+<script src="bower_components/angular-pdf-viewer/dist/angular-pdf-viewer.min.js"></script>
 ```
 
 3. Include the lib as a dependency in your angular app:
