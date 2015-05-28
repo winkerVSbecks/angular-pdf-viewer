@@ -119,7 +119,7 @@ angular.module('pdf')
         docInitParams.url = url;
       }
 
-      PDFJS
+      return PDFJS
         .getDocument(docInitParams)
         .then(function (_pdfDoc) {
 
