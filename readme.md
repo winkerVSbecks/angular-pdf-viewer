@@ -54,8 +54,9 @@ pdfDelegate.$getByHandle('my-pdf-container').zoomIn();
 The following methods are available to the delegate:
 - prev
 - next
-- zoomIn
-- zoomOut
+- zoomIn(amount) *default amount = 0.2*
+- zoomOut(amount) *default amount = 0.2*
+- zoomTo(amount)
 - rotate *(clockwise by 90 degrees)*
 - getPageCount
 - getCurrentPage
