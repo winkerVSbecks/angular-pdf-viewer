@@ -1,6 +1,6 @@
 {
   "name": "angular-pdf-viewer",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "An AngularJS directive to display PDFs",
   "main": "./dist/angular-pdf-viewer.min.js",
   "license": "MIT",
