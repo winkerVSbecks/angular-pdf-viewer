@@ -29,13 +29,14 @@ var app = angular.module('App', ['pdf']);
 
 ## Directive
 
-The URL, request headers, scale and delegate-handle can be set using the attributes:
+The URL, request headers, full-doc, scale and delegate-handle can be set using the attributes:
 
 ``` html
 <pdf-viewer
     delegate-handle="my-pdf-container"
     url="pdfUrl"
     scale="1"
+    full-doc="true"
     show-toolbar="true"
     headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
 ```
