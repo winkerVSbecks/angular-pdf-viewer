@@ -21,26 +21,42 @@ angular.module('pdf')
     var currentPage = 1;
     var angle = 0;
     var scale = $attrs.scale ? $attrs.scale : 1;
-    var canvas = $element.find('canvas')[0];
-    var ctx = canvas.getContext('2d');
+    var fullDoc = $attrs.fullDoc || false;
+    var content = $element.find('div');
+
+    var pageToCanvas = function (page) {
+      var viewport = page.getViewport(scale);
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+      };
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      page.render(renderContext);
+      return canvas;
+    };
 
     var renderPage = function(num) {
       if (!angular.isNumber(num))
         num = parseInt(num);
-      pdfDoc
-        .getPage(num)
-        .then(function(page) {
-          var viewport = page.getViewport(scale);
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
 
-          var renderContext = {
-            canvasContext: ctx,
-            viewport: viewport
-          };
+      pdfDoc.getPage(num).then(function (page) {
+        content.empty();
+        content.append(pageToCanvas(page));
+      });
+    };
 
-          page.render(renderContext);
+    var renderFullDoc = function () {
+      content.empty();
+      for(var num = 1; num <= pdfDoc.numPages; num++) {
+        pdfDoc.getPage(num).then(function (page) {
+          content.append(pageToCanvas(page));
         });
+      }
     };
 
     var transform = function() {
@@ -134,7 +150,12 @@ angular.module('pdf')
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
-          renderPage(1);
+
+          if (fullDoc)
+            renderFullDoc();
+          else
+            renderPage(1);
+
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
           });
