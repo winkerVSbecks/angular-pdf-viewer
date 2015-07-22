@@ -67,14 +67,14 @@ angular.module('pdf')
 
     self.zoomIn = function(amount) {
       amount = amount || 0.2;
-      scale = parseFloat(scale) + amount;
+      scale = (parseFloat(scale) + amount).toFixed(2);
       renderPage(currentPage);
       return scale;
     };
 
     self.zoomOut = function(amount) {
       amount = amount || 0.2;
-      scale = parseFloat(scale) - amount;
+      scale = (parseFloat(scale) - amount).toFixed(2);
       scale = (scale > 0) ? scale : 0.1;
       renderPage(currentPage);
       return scale;
@@ -82,7 +82,7 @@ angular.module('pdf')
 
     self.zoomTo = function(zoomToScale) {
       zoomToScale = (zoomToScale) ? zoomToScale : 1.0;
-      scale = parseFloat(zoomToScale);
+      scale = (parseFloat(zoomToScale)).toFixed(2);
       renderPage(currentPage);
       return scale;
     };
