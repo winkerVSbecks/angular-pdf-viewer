@@ -132,7 +132,9 @@ angular.module('pdf')
       return PDFJS
         .getDocument(docInitParams)
         .then(function (_pdfDoc) {
-
+          if (typeof scope.onLoad === 'function' ) {
+            $scope.onLoad();
+          }
           pdfDoc = _pdfDoc;
           renderPage(1);
           $scope.$apply(function() {
