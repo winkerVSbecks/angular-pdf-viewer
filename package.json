@@ -1,6 +1,6 @@
 {
   "name": "angular-pdf-viewer",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "author": "Varun Vachhar",
   "description": "An AngularJS directive to display PDFs",
   "repository": {
