@@ -14,7 +14,7 @@ gulp.task('build', function() {
     './src/js/pdf-viewer.js'
   ])
     .pipe(concat('angular-pdf-viewer.min.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('./dist/'));
 });
 
