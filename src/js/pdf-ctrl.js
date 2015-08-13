@@ -122,11 +122,15 @@ angular.module('pdf')
 
       var docInitParams = {};
 
-      if (headers) {
+      if (typeof url === 'string') {
         docInitParams.url = url;
-        docInitParams.httpHeaders = headers;
       } else {
-        docInitParams.url = url;
+        // use Uint8Array or request like `{data: new Uint8Array()}`.  See pdf.js for more details.
+        docInitParams.data = url;
+      }
+
+      if (headers) {
+        docInitParams.httpHeaders = headers;
       }
 
       return PDFJS
