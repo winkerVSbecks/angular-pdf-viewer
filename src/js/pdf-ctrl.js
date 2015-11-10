@@ -86,6 +86,10 @@ angular.module('pdf')
       renderPage(currentPage);
       return scale;
     };
+    
+    self.loadCallback = function(callback) {
+	    $scope.loadCallback = callback;
+    }
 
     self.rotate = function() {
       if (angle === 0) {
@@ -141,6 +145,7 @@ angular.module('pdf')
           renderPage(1);
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
+            if ($scope.loadCallback) $scope.loadCallback($scope.pageCount);
           });
 
         }, $log.error);

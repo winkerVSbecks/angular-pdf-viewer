@@ -62,6 +62,7 @@ The following methods are available to the delegate:
 - getCurrentPage
 - goToPage(pageNumber)
 - load
+- loadCallback(function(pagecount))
 
 
 ## Change the PDF File
@@ -73,7 +74,7 @@ pdfDelegate
     .$getByHandle('my-pdf-container')
     .load('url-of-the-new-file.pdf');
 ```
-
+`loadCallback`function will be called, after the document has been loaded successfully by pdfjs.
 
 ## Example
 
