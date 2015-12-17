@@ -5,7 +5,8 @@ angular.module('pdf')
     '$attrs',
     'pdfDelegate',
     '$log',
-  function($scope, $element, $attrs, pdfDelegate, $log) {
+    '$q',
+  function($scope, $element, $attrs, pdfDelegate, $log, $q) {
 
     // Register the instance!
     var deregisterInstance = pdfDelegate._registerInstance(this, $attrs.delegateHandle);
@@ -143,7 +144,10 @@ angular.module('pdf')
             $scope.pageCount = _pdfDoc.numPages;
           });
 
-        }, $log.error);
+        }, function(error) {
+            $log.error(error);
+            return $q.reject(error);
+        })
     };
 
     if(url) self.load();
