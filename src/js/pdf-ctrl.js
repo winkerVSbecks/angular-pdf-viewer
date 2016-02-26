@@ -25,7 +25,7 @@ angular.module('pdf')
     var showAllPages = typeof $attrs.showAllPages !== 'undefined' && $attrs.showAllPages !== 'false';
     var canvasContainer = $element.find('div')[0];
 
-    var renderPage = function(num, canvas) {
+    var renderPage = function(num) {
       if (!angular.isNumber(num))
         num = parseInt(num);
       pdfDoc
@@ -166,11 +166,7 @@ angular.module('pdf')
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
-          if(showAllPages) {
-            renderAllPages();
-          } else {
-            renderPage(1);
-          }
+          showAllPages ? renderAllPages() : renderPage(1);
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
           });
