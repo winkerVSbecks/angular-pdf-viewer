@@ -21,7 +21,6 @@ angular.module('pdf')
     $scope.pageCount = 0;
     var currentPage = 1;
     var angle = 0;
-    var pc = 0;
     var scale = $attrs.scale ? $attrs.scale : 1;
     var showAllPages = typeof $attrs.showAllPages !== 'undefined' && $attrs.showAllPages !== 'false';
     var canvasContainer = $element.find('div')[0];
@@ -142,10 +141,6 @@ angular.module('pdf')
         currentPage = newVal;
         renderPage(newVal);
       }
-    };
-
-    self.getProgress = function() {
-      return pc;
     };
 
     self.load = function(_url, _progressCallback) {
