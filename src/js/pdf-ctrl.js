@@ -24,6 +24,7 @@ angular.module('pdf')
     var scale = $attrs.scale ? $attrs.scale : 1;
     var showAllPages = typeof $attrs.showAllPages !== 'undefined' && $attrs.showAllPages !== 'false';
     var canvasContainer = $element.find('div')[0];
+    var maxWidth = $attrs.maxWidth ? $attrs.maxWidth : false;
 
     var renderPage = function(num) {
       if (!angular.isNumber(num))
@@ -34,6 +35,10 @@ angular.module('pdf')
           var viewport = page.getViewport(scale);
           var canvas = document.createElement('canvas');
           var ctx = canvas.getContext('2d');
+
+          if(maxWidth && viewport.width > maxWidth) {
+            viewport = page.getViewport(maxWidth/viewport.width);
+          }
           
           canvas.height = viewport.height;
           canvas.width = viewport.width;
