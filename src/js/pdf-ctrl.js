@@ -108,6 +108,10 @@ angular.module('pdf')
     self.getCurrentPage = function () {
       return currentPage;
     };
+    
+    self.getCurrentUrl = function() {
+      return url;
+    }
 
     self.goToPage = function(newVal) {
       if (pdfDoc !== null) {
