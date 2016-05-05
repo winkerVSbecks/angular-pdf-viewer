@@ -39,11 +39,11 @@ angular.module('pdf')
           if(maxWidth && viewport.width > maxWidth) {
             viewport = page.getViewport(maxWidth/viewport.width);
           }
-          
+
           canvas.height = viewport.height;
           canvas.width = viewport.width;
           canvas.style.display = "block";
-          
+
           canvasContainer.appendChild(canvas);
 
           var renderContext = {
@@ -77,6 +77,14 @@ angular.module('pdf')
       while (canvasContainer.lastChild) {
         canvasContainer.removeChild(canvasContainer.lastChild);
       }
+    };
+
+    var destroy = function() {
+      pdfDoc.destroy();
+    }
+
+    var cleanup = function() {
+      pdfDoc.cleanup();
     }
 
     self.prev = function() {
@@ -146,6 +154,12 @@ angular.module('pdf')
         currentPage = newVal;
         renderPage(newVal);
       }
+    };
+
+    self.destroy = function() {
+      destroy();
+      cleanup();
+      return self;
     };
 
     self.load = function(_url, _progressCallback) {
