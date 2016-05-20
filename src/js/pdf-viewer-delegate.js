@@ -5,6 +5,7 @@ angular.module('pdf', [])
     'zoomIn',
     'zoomOut',
     'zoomTo',
+    'fit',
     'rotate',
     'getPageCount',
     'getCurrentPage',

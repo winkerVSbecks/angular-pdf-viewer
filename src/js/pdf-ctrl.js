@@ -21,6 +21,8 @@ angular.module('pdf')
     $scope.pageCount = 0;
     var currentPage = 1;
     var angle = 0;
+    var pageFit = $attrs.scale === 'page-fit';
+    var pageWidthScale;
     var scale = $attrs.scale ? $attrs.scale : 1;
     var canvas = $element.find('canvas')[0];
     var ctx = canvas.getContext('2d');
@@ -31,7 +33,17 @@ angular.module('pdf')
       pdfDoc
         .getPage(num)
         .then(function(page) {
-          var viewport = page.getViewport(scale);
+          var viewport;
+          if (pageFit) {
+             if (!pageWidthScale) {
+               viewport = page.getViewport(1);
+               var clientRect = $element[0].getBoundingClientRect();
+               scale = pageWidthScale = clientRect.width / viewport.width;
+             } else {
+               scale = pageWidthScale;
+             }
+          }
+          viewport = page.getViewport(scale);
           canvas.height = viewport.height;
           canvas.width = viewport.width;
 
@@ -53,6 +65,7 @@ angular.module('pdf')
     };
 
     self.prev = function() {
+      pageFit = false;
       if (currentPage <= 1)
         return;
       currentPage = parseInt(currentPage, 10) - 1;
@@ -60,6 +73,7 @@ angular.module('pdf')
     };
 
     self.next = function() {
+      pageFit = false;
       if (currentPage >= pdfDoc.numPages)
         return;
       currentPage = parseInt(currentPage, 10) + 1;
@@ -67,6 +81,7 @@ angular.module('pdf')
     };
 
     self.zoomIn = function(amount) {
+      pageFit = false;
       amount = amount || 0.2;
       scale = parseFloat(scale) + amount;
       renderPage(currentPage);
@@ -74,6 +89,7 @@ angular.module('pdf')
     };
 
     self.zoomOut = function(amount) {
+      pageFit = false;
       amount = amount || 0.2;
       scale = parseFloat(scale) - amount;
       scale = (scale > 0) ? scale : 0.1;
@@ -82,11 +98,17 @@ angular.module('pdf')
     };
 
     self.zoomTo = function(zoomToScale) {
+      pageFit = false;
       zoomToScale = (zoomToScale) ? zoomToScale : 1.0;
       scale = parseFloat(zoomToScale);
       renderPage(currentPage);
       return scale;
     };
+
+    self.fit = function() {
+      pageFit = true;
+      renderPage(currentPage);
+    }
 
     self.rotate = function() {
       if (angle === 0) {
@@ -110,6 +132,7 @@ angular.module('pdf')
     };
 
     self.goToPage = function(newVal) {
+      pageFit = false;
       if (pdfDoc !== null) {
         currentPage = newVal;
         renderPage(newVal);

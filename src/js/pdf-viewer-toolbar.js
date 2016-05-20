@@ -24,6 +24,10 @@ angular.module('pdf')
               'class="button py2 m0 button-nav-dark">Zoom Out' +
             '</a>' +
             '<a href=""' +
+              'ng-click="fit()"' +
+              'class="button py2 m0 button-nav-dark">Fit width' +
+            '</a>' +
+            '<a href=""' +
               'ng-click="rotate()"' +
               'class="button py2 m0 button-nav-dark">Rotate' +
             '</a>' +
@@ -60,6 +64,11 @@ angular.module('pdf')
           pdfDelegate
             .$getByHandle(id)
             .zoomOut();
+        };
+        scope.fit = function() {
+          pdfDelegate
+            .$getByHandle(id)
+            .fit();
         };
         scope.rotate = function() {
           pdfDelegate
