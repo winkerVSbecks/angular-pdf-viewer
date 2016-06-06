@@ -22,8 +22,9 @@ angular.module('pdf')
     var currentPage = 1;
     var angle = 0;
     var scale = $attrs.scale ? $attrs.scale : 1;
-    var canvas = $element.find('canvas')[0];
-    var ctx = canvas.getContext('2d');
+    var showAllPages = typeof $attrs.showAllPages !== 'undefined' && $attrs.showAllPages !== 'false';
+    var canvasContainer = $element.find('div')[0];
+    var maxWidth = $attrs.maxWidth ? $attrs.maxWidth : false;
 
     var renderPage = function(num) {
       if (!angular.isNumber(num))
@@ -32,8 +33,18 @@ angular.module('pdf')
         .getPage(num)
         .then(function(page) {
           var viewport = page.getViewport(scale);
+          var canvas = document.createElement('canvas');
+          var ctx = canvas.getContext('2d');
+
+          if(maxWidth && viewport.width > maxWidth) {
+            viewport = page.getViewport(maxWidth/viewport.width);
+          }
+
           canvas.height = viewport.height;
           canvas.width = viewport.width;
+          canvas.style.display = "block";
+
+          canvasContainer.appendChild(canvas);
 
           var renderContext = {
             canvasContext: ctx,
@@ -44,24 +55,50 @@ angular.module('pdf')
         });
     };
 
-    var transform = function() {
-      canvas.style.webkitTransform = 'rotate('+ angle + 'deg)';
-      canvas.style.MozTransform = 'rotate('+ angle + 'deg)';
-      canvas.style.msTransform = 'rotate('+ angle + 'deg)';
-      canvas.style.OTransform = 'rotate('+ angle + 'deg)';
-      canvas.style.transform = 'rotate('+ angle + 'deg)';
+    var renderAllPages = function() {
+      for(var num = 1; num <= pdfDoc.numPages; num++) {
+        renderPage(num);
+      }
     };
 
+    var transform = function() {
+      var canvases = $element.find('canvas');
+      for(var i = 0; i < canvases.length; i++) {
+        var canvas = canvases[i];
+        canvas.style.webkitTransform = 'rotate('+ angle + 'deg)';
+        canvas.style.MozTransform = 'rotate('+ angle + 'deg)';
+        canvas.style.msTransform = 'rotate('+ angle + 'deg)';
+        canvas.style.OTransform = 'rotate('+ angle + 'deg)';
+        canvas.style.transform = 'rotate('+ angle + 'deg)';
+      }
+    };
+
+    var clearContainer = function() {
+      while (canvasContainer.lastChild) {
+        canvasContainer.removeChild(canvasContainer.lastChild);
+      }
+    };
+
+    var destroy = function() {
+      pdfDoc.destroy();
+    }
+
+    var cleanup = function() {
+      pdfDoc.cleanup();
+    }
+
     self.prev = function() {
-      if (currentPage <= 1)
+      if (currentPage <= 1 || showAllPages)
         return;
+      clearContainer();
       currentPage = parseInt(currentPage, 10) - 1;
       renderPage(currentPage);
     };
 
     self.next = function() {
-      if (currentPage >= pdfDoc.numPages)
+      if (currentPage >= pdfDoc.numPages || showAllPages)
         return;
+      clearContainer();
       currentPage = parseInt(currentPage, 10) + 1;
       renderPage(currentPage);
     };
@@ -69,7 +106,8 @@ angular.module('pdf')
     self.zoomIn = function(amount) {
       amount = amount || 0.2;
       scale = parseFloat(scale) + amount;
-      renderPage(currentPage);
+      clearContainer();
+      showAllPages ? renderAllPages() : renderPage(currentPage);
       return scale;
     };
 
@@ -77,14 +115,16 @@ angular.module('pdf')
       amount = amount || 0.2;
       scale = parseFloat(scale) - amount;
       scale = (scale > 0) ? scale : 0.1;
-      renderPage(currentPage);
+      clearContainer();
+      showAllPages ? renderAllPages() : renderPage(currentPage);
       return scale;
     };
 
     self.zoomTo = function(zoomToScale) {
       zoomToScale = (zoomToScale) ? zoomToScale : 1.0;
       scale = parseFloat(zoomToScale);
-      renderPage(currentPage);
+      clearContainer();
+      showAllPages ? renderAllPages() : renderPage(currentPage);
       return scale;
     };
 
@@ -116,7 +156,13 @@ angular.module('pdf')
       }
     };
 
-    self.load = function(_url) {
+    self.destroy = function() {
+      destroy();
+      cleanup();
+      return self;
+    };
+
+    self.load = function(_url, _progressCallback) {
       if (_url) {
         url = _url;
       }
@@ -135,11 +181,11 @@ angular.module('pdf')
       }
 
       return PDFJS
-        .getDocument(docInitParams)
+        .getDocument(docInitParams, null, null, _progressCallback)
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
-          renderPage(1);
+          showAllPages ? renderAllPages() : renderPage(1);
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
           });
