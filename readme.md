@@ -1,4 +1,6 @@
-# Angular PDF Viewer
+# No Longer Maintained! [![forthebadge](http://forthebadge.com/images/badges/compatibility-betamax.svg)](http://forthebadge.com)
+
+## Angular PDF Viewer
 
 An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/full/50010e383d0f80deab97858571400d86/)
 
