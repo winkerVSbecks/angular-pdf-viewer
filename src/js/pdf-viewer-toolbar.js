@@ -34,9 +34,10 @@ angular.module('pdf')
             ' / {{pageCount}}' +
           '</div>' +
         '</div>',
-      scope: { pageCount: '=' },
+      scope: { pageCount: '=',
+      delegateHandle: '@'},
       link: function(scope, element, attrs) {
-        var id = attrs.delegateHandle;
+        var id = scope.delegateHandle;
         scope.currentPage = 1;
 
         scope.prev = function() {
