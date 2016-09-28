@@ -12,6 +12,7 @@ angular.module('pdf')
       controller: 'PdfCtrl',
       link: function(scope, element, attrs) {
         scope.id = scope.delegateHandle;
+        console.log('pdfViewer id: ', scope.id);
         scope.showToolbar = scope.$eval(attrs.showToolbar) || false;
       }
     };
