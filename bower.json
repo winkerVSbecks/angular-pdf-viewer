@@ -7,7 +7,7 @@
   "homepage": "http://github.com/winkerVSbecks/angular-pdf-viewer",
   "dependencies": {
     "angular": "^1.3.0",
-    "pdfjs-dist": "~1.0.925"
+    "pdfjs-dist": "^1.7.351"
   },
   "ignore": [
     "src",
