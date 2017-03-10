@@ -26,8 +26,13 @@ angular.module('pdf')
     var ctx = canvas.getContext('2d');
 
     var renderPage = function(num) {
-      if (!angular.isNumber(num))
+      if (!angular.isNumber(num)) {
         num = parseInt(num);
+      }
+      if (!isFinite(num) || num <= 0 || num > $scope.pageCount) {
+        return;
+      }
+
       pdfDoc
         .getPage(num)
         .then(function(page) {
@@ -139,11 +144,10 @@ angular.module('pdf')
         .then(function (_pdfDoc) {
 
           pdfDoc = _pdfDoc;
-          renderPage(1);
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
+            renderPage(1);
           });
-
         }, function(error) {
             $log.error(error);
             return $q.reject(error);
