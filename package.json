@@ -13,7 +13,6 @@
     "gulp-uglify": "^0.3.1",
     "gulp-watch": "^0.6.9",
     "gulp-connect": "^2.0.6",
-    "colors": "^0.6.2",
-    "gulp-concat": "^2.3.4"
+    "colors": "^0.6.2"
   }
 }
