@@ -115,7 +115,7 @@ angular.module('pdf')
     };
 
     self.goToPage = function(newVal) {
-      if (pdfDoc !== null) {
+      if (pdfDoc !== null && !angular.isUndefined(pdfDoc)) {
         currentPage = newVal;
         renderPage(newVal);
       }
