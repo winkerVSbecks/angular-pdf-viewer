@@ -29,7 +29,7 @@ angular.module('pdf')
       if (!angular.isNumber(num)) {
         num = parseInt(num);
       }
-      if (!isFinite(num) || num <= 0 || num > $scope.pageCount) {
+      if (!isFinite(num) || num <= 0 || num > $scope.pageCount || pdfDoc === null || angular.isUndefined(pdfDoc)) {
         return;
       }
 
