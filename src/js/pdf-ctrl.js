@@ -37,6 +37,9 @@ angular.module('pdf')
         .getPage(num)
         .then(function(page) {
           var viewport = page.getViewport(scale);
+          $element.find('canvas').replaceWith('<canvas></canvas>');
+          canvas = $element.find('canvas')[0];
+          ctx = canvas.getContext('2d');
           canvas.height = viewport.height;
           canvas.width = viewport.width;
 
