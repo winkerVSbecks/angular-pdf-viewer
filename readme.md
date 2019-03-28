@@ -1,6 +1,7 @@
 ## Angular PDF Viewer
 
 An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/full/50010e383d0f80deab97858571400d86/)
+In the DEMO show-all-page is not working you've to copy content for angular-pdf-viewer.min to show all pages
 
 ## Dependencies
 
@@ -37,6 +38,7 @@ The URL, request headers, scale and delegate-handle can be set using the attribu
     url="pdfUrl"
     scale="1"
     show-toolbar="true"
+    show-all-pages="true"
     headers="{ 'x-you-know-whats-awesome': 'EVERYTHING' }"></pdf-viewer>
 ```
 
@@ -82,6 +84,10 @@ Run `npm install && bower install` to install all dependencies. And then `gulp d
 
 ## Toolbar
 The default toolbar can be shown or hidden using the `show-toolbar` attribute. Since the PDF can be easily controlled using the delegate service it's quite trivial to build a custom toolbar. Or place the toolbar on a separate scope.
+
+## Show all pages
+
+Show all the pdf simultaniously you can use `show-all-pages` attribute.
 
 
 ## Similar projects

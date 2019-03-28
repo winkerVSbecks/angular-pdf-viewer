@@ -1474,3 +1474,27 @@ hr {
 
 /* Defaults */
 
+pdf-viewer{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    overflow: auto;
+  }
+
+  .pdf-page-canvas {
+    display: block;
+    margin: 5px auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+pdf-viewer{
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+.pdf-page-canvas {
+  display: block;
+  margin: 5px auto;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
