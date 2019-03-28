@@ -7,7 +7,6 @@ angular.module('pdf')
     '$log',
     '$q',
   function($scope, $element, $attrs, pdfDelegate, $log, $q) {
-
     // Register the instance!
     var deregisterInstance = pdfDelegate._registerInstance(this, $attrs.delegateHandle);
     // De-Register on destory!
@@ -23,14 +22,19 @@ angular.module('pdf')
     var angle = 0;
     var scale = $attrs.scale ? $attrs.scale : 1;
     var canvas = $element.find('canvas')[0];
-    var ctx = canvas.getContext('2d');
+    // var ctx = canvas.getContext('2d');
+    $scope.pageWidth = 0;
 
-    var renderPage = function(num) {
+    var renderPage = function(num, canvas) {
       if (!angular.isNumber(num)) {
         num = parseInt(num);
       }
       if (!isFinite(num) || num <= 0 || num > $scope.pageCount || pdfDoc === null || angular.isUndefined(pdfDoc)) {
         return;
+      }
+
+      if($scope.showAllPages == false){
+        var canvas = $element.find('canvas')[0];
       }
 
       pdfDoc
@@ -39,9 +43,10 @@ angular.module('pdf')
           var viewport = page.getViewport(scale);
           canvas.height = viewport.height;
           canvas.width = viewport.width;
+          $scope.pageWidth = viewport.width;
 
           var renderContext = {
-            canvasContext: ctx,
+            canvasContext: canvas.getContext('2d'),
             viewport: viewport
           };
 
@@ -56,6 +61,14 @@ angular.module('pdf')
       canvas.style.OTransform = 'rotate('+ angle + 'deg)';
       canvas.style.transform = 'rotate('+ angle + 'deg)';
     };
+
+    var get_cavas = function(){
+      viewer = document.getElementById('pdf-viewer');
+      canvas = document.createElement("canvas");    
+      canvas.className = 'pdf-page-canvas';         
+      viewer.appendChild(canvas);
+      return canvas;
+    }
 
     self.prev = function() {
       if (currentPage <= 1)
@@ -110,6 +123,10 @@ angular.module('pdf')
       return $scope.pageCount;
     };
 
+    self.getPageWidth = function() {
+      return $scope.pageWidth;
+    };
+
     self.getCurrentPage = function () {
       return currentPage;
     };
@@ -146,7 +163,14 @@ angular.module('pdf')
           pdfDoc = _pdfDoc;
           $scope.$apply(function() {
             $scope.pageCount = _pdfDoc.numPages;
-            renderPage(1);
+            if($scope.showAllPages == true){
+              for(page = 1; page <= $scope.pageCount; page++) {
+                renderPage(page, get_cavas());
+              } 
+            }else{       
+              renderPage(1, get_cavas());
+            }
+            $scope.showSpinner = false;
           });
         }, function(error) {
             $log.error(error);
