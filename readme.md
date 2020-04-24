@@ -10,14 +10,15 @@ An AngularJS directive to display PDFs. [DEMO](http://codepen.io/winkerVSbecks/f
 
 ## Usage
 
-1. `bower install angular-pdf-viewer`
+1. `npm install angularjs-pdf-viewer`
+   `yarn add angularjs-pdf-viewer`
 
 2. Include the path to the lib, AngularJS and PDFJS:
 
 ```
-<script src="bower_components/pdfjs-dist/build/pdf.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-pdf-viewer/dist/angular-pdf-viewer.min.js"></script>
+<script src="node_modules/pdfjs-dist/build/pdf.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angularjs-pdf-viewer/dist/angular-pdf-viewer.min.js"></script>
 ```
 
 3. Include the lib as a dependency in your angular app:
@@ -77,19 +78,8 @@ pdfDelegate
 
 ## Example
 
-Run `npm install && bower install` to install all dependencies. And then `gulp dev` to start a local server. The example will now be available at [localhost:3000/src](http://localhost:3000/src)
+Run `npm install && yarn add` to install all dependencies. And then `gulp dev` to start a local server. The example will now be available at [localhost:3000/src](http://localhost:3000/src)
 
 
 ## Toolbar
 The default toolbar can be shown or hidden using the `show-toolbar` attribute. Since the PDF can be easily controlled using the delegate service it's quite trivial to build a custom toolbar. Or place the toolbar on a separate scope.
-
-
-## Similar projects
-
-1. [angularjs-pdf](https://github.com/sayanee/angularjs-pdf)
-2. [ng-pdfviewer](https://github.com/akrennmair/ng-pdfviewer)
-
-
-## Credit
-
-PDF examples used are [Relativity: The Special and General Theory by Albert Einstein](http://www.gutenberg.org/ebooks/30155) as kindly organized and made available free by [Project Gutenberg](http://www.gutenberg.org/wiki/Main_Page). And the [This is Material Design](http://static.googleusercontent.com/media/www.google.com/en//design/material-design.pdf) by Google.
